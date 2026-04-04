@@ -1886,15 +1886,9 @@
         <p>פלטפורמת שיחה מתקדמת</p>
       </div>
       <div id="sec-login">
-        <div class="fg"><label>מייל</label><input type="email" id="lEmail" placeholder="you@example.com"></div>
-        <div class="fg"><label>סיסמה</label><input type="password" id="lPw" placeholder="••••••••"
-            onkeydown="if(event.key==='Enter')doLogin()"></div>
-        <div class="remr"><input type="checkbox" id="remMe"><label for="remMe">זכור אותי</label></div>
-        <button class="btnp" onclick="doLogin()">התחבר</button>
-        <div id="lErr" class="err hidden"></div>
-        <div class="google-divider">או</div>
+        <p style="font-size:13px;color:var(--t2);text-align:center;margin-bottom:16px;">ניתן להתחבר רק דרך Google</p>
         <button class="btn-google" onclick="doGoogleAuth()">
-          <svg width="18" height="18" viewBox="0 0 48 48">
+          <svg width="20" height="20" viewBox="0 0 48 48">
             <path fill="#EA4335"
               d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z" />
             <path fill="#4285F4"
@@ -1904,34 +1898,9 @@
             <path fill="#34A853"
               d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.35-8.16 2.35-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z" />
           </svg>
-          המשך עם Google
+          כניסה / הרשמה עם Google
         </button>
-        <div class="asw"><a href="#" onclick="goSec('reg')">צור חשבון</a> · <a href="#" onclick="alert('דמו')">שכחתי
-            סיסמה</a></div>
-      </div>
-      <div id="sec-reg" class="hidden">
-        <div class="fg"><label>שם מלא</label><input type="text" id="rName"></div>
-        <div class="fg"><label>מייל</label><input type="email" id="rEmail"></div>
-        <div class="fg"><label>סיסמה</label><input type="password" id="rPw"></div>
-        <div class="fg"><label>אישור סיסמה</label><input type="password" id="rPw2"></div>
-        <button class="btnp" onclick="doReg()">הרשם</button>
-        <div id="rErr" class="err hidden"></div>
-        <div id="rOk" class="suc hidden"></div>
-        <div class="google-divider">או</div>
-        <button class="btn-google" onclick="doGoogleAuth()">
-          <svg width="18" height="18" viewBox="0 0 48 48">
-            <path fill="#EA4335"
-              d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z" />
-            <path fill="#4285F4"
-              d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z" />
-            <path fill="#FBBC05"
-              d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z" />
-            <path fill="#34A853"
-              d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.35-8.16 2.35-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z" />
-          </svg>
-          הרשם עם Google
-        </button>
-        <div class="asw"><a href="#" onclick="goSec('login')">← חזור</a></div>
+        <div id="lErr" class="err hidden" style="margin-top:12px;text-align:center;"></div>
       </div>
     </div>
   </div>
@@ -2136,6 +2105,19 @@
           <div id="schedList">
             <p style="font-size:13px;color:var(--t3);padding:8px 0;">אין הודעות מתוזמנות</p>
           </div>
+        </div>
+      </div>
+      <div id="atab-whitelist" class="acnt">
+        <div class="asec">
+          <h4>📧 מיילים מורשים להתחבר</h4>
+          <p style="font-size:12px;color:var(--t2);margin-bottom:12px;">רק מיילים שברשימה זו יוכלו להיכנס לאתר. מנהל
+            ראשי תמיד מורשה.</p>
+          <div style="display:flex;gap:8px;margin-bottom:12px;">
+            <input type="email" id="wlEmailInput" placeholder="example@gmail.com"
+              style="flex:1;padding:9px 12px;border:1.5px solid var(--bd);border-radius:9px;font-size:13px;outline:none;font-family:inherit;">
+            <button class="mbtn p" onclick="addToWhitelist()">הוסף</button>
+          </div>
+          <div id="wlList"></div>
         </div>
       </div>
       <div id="atab-settings" class="acnt">
@@ -2406,31 +2388,10 @@
       $('sec-login').classList.toggle('hidden', s !== 'login');
       $('sec-reg').classList.toggle('hidden', s !== 'reg');
     }
-    function doLogin() {
-      const email = $('lEmail').value.trim(), pw = $('lPw').value;
-      const users = ls('users');
-      const u = users.find(x => x.email.toLowerCase() === email.toLowerCase() && x.password === btoa(pw) && !x.deleted);
-      if (!u) { $('lErr').textContent = 'מייל או סיסמה שגויים'; $('lErr').classList.remove('hidden'); return; }
-      CU = u; localStorage.setItem('currentUser', JSON.stringify(u));
-      if ($('remMe').checked) localStorage.setItem('rem', '1'); else localStorage.removeItem('rem');
-      sessionStorage.setItem('sa', '1'); showApp(); startPolling();
-    }
-    function doReg() {
-      const name = $('rName').value.trim(), email = $('rEmail').value.trim(), pw = $('rPw').value, pw2 = $('rPw2').value;
-      if (!name || !email || !pw) { showE('rErr', 'מלא את כל השדות'); return; }
-      if (pw !== pw2) { showE('rErr', 'הסיסמאות לא תואמות'); return; }
-      if (pw.length < 6) { showE('rErr', 'סיסמה קצרה מדי (מינימום 6)'); return; }
-      const users = ls('users');
-      if (users.find(u => u.email.toLowerCase() === email.toLowerCase())) { showE('rErr', 'מייל זה כבר קיים'); return; }
-      const nu = {
-        id: Date.now().toString(), name, email, password: btoa(pw), isAdmin: false,
-        avatar: name.charAt(0).toUpperCase(), profileImage: null, status: '',
-        deleted: false, createdAt: new Date().toISOString(), perms: {}
-      };
-      users.push(nu); ss('users', users);
-      $('rOk').textContent = 'נרשמת! כעת תוכל להתחבר.'; $('rOk').classList.remove('hidden');
-      setTimeout(() => goSec('login'), 1600);
-    }
+    function doLogin() { doGoogleAuth(); }
+
+    function doReg() { doGoogleAuth(); }
+
     function doLogout() {
       if (pollingInterval) { clearInterval(pollingInterval); pollingInterval = null; }
       localStorage.removeItem('currentUser'); localStorage.removeItem('rem'); sessionStorage.removeItem('sa');
@@ -2748,7 +2709,7 @@
     // ═══ SEND ═══
     function sendMsg() {
       const inp = $('minput'), raw = inp.value.trim();
-      if ((!raw && !pendingImg) || !CT) return;
+      if ((!raw && !pendingImg && !pendingVideo) || !CT) return;
       if (CT.locked && !can('canLock')) return;
       if (blockedIn(CT.id)) { alert('אינך מורשה לכתוב בנושא זה'); return; }
       if (OFFENSIVE.some(w => raw.toLowerCase().includes(w.toLowerCase()))) { alert('תוכן לא מתאים'); return; }
@@ -2799,7 +2760,7 @@
     function loadMentionUsers() { mentionUsers = ls('users').filter(u => !u.deleted); }
     function onInput() {
       const inp = $('minput');
-      $('sbtn').disabled = !inp.value.trim();
+      $('sbtn').disabled = (!inp.value.trim() && !pendingImg && !pendingVideo);
       inp.style.height = '44px'; inp.style.height = Math.min(inp.scrollHeight, 120) + 'px';
       handleMention(inp);
     }
@@ -3060,6 +3021,7 @@
       if (name === 'perms') renderPermList();
       if (name === 'requests') renderARequests();
       if (name === 'msgs') renderAMsgs();
+      if (name === 'whitelist') renderWhitelist();
       if (name === 'settings') renderAStats();
     }
     function renderAThreads() {
@@ -3725,6 +3687,12 @@
         const email = info.email;
         const googleName = info.name || email.split('@')[0];
         const googleAvatar = info.picture || null;
+        // Check whitelist
+        if (!isEmailAllowed(email)) {
+          $('lErr').textContent = '❌ המייל שלך אינו מורשה להיכנס לאתר זה. פנה למנהל.';
+          $('lErr').classList.remove('hidden');
+          return;
+        }
         // Check if user exists
         const users = ls('users');
         const existing = users.find(u => u.email.toLowerCase() === email.toLowerCase() && !u.deleted);
@@ -3807,6 +3775,50 @@
       const b = $('iprev'); b.classList.add('hidden'); b.innerHTML = '';
     }
 
+
+
+    // ═══ WHITELIST ═══
+    function getWhitelist() {
+      return JSON.parse(localStorage.getItem('whitelist') || '[]');
+    }
+    function isEmailAllowed(email) {
+      if (!email) return false;
+      // Super admin always allowed
+      if (email.toLowerCase() === SUPER_EMAIL.toLowerCase()) return true;
+      const wl = getWhitelist();
+      // If whitelist is empty, nobody can register (except super)
+      if (!wl.length) return false;
+      return wl.some(e => e.toLowerCase() === email.toLowerCase());
+    }
+    function addToWhitelist() {
+      const inp = $('wlEmailInput');
+      const email = inp.value.trim().toLowerCase();
+      if (!email || !email.includes('@')) { alert('הכנס מייל תקין'); return; }
+      const wl = getWhitelist();
+      if (wl.includes(email)) { alert('מייל זה כבר ברשימה'); return; }
+      wl.push(email); localStorage.setItem('whitelist', JSON.stringify(wl));
+      inp.value = ''; renderWhitelist();
+    }
+    function removeFromWhitelist(email) {
+      const wl = getWhitelist().filter(e => e !== email);
+      localStorage.setItem('whitelist', JSON.stringify(wl));
+      renderWhitelist();
+    }
+    function renderWhitelist() {
+      const wl = getWhitelist();
+      const c = $('wlList'); if (!c) return;
+      if (!wl.length) {
+        c.innerHTML = '<p style="font-size:13px;color:var(--t3);padding:8px 0;">אין מיילים מורשים — אף אחד לא יכול להתחבר (חוץ ממנהל ראשי)</p>';
+        return;
+      }
+      c.innerHTML = '';
+      wl.forEach(email => {
+        const d = document.createElement('div'); d.className = 'arow';
+        d.innerHTML = `<div class="ari"><strong>${email}</strong></div>
+          <button class="mbtn d" style="padding:5px 10px;font-size:12px;" onclick="removeFromWhitelist('${email}')">הסר</button>`;
+        c.appendChild(d);
+      });
+    }
 
     // ═══ LIGHTBOX, SCROLL, MODAL ═══
     function openLB(src) { $('lbImg').src = src; $('lb').classList.add('open'); }
