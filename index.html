@@ -1889,10 +1889,14 @@
         <p style="font-size:13px;color:var(--t2);text-align:center;margin-bottom:16px;">ניתן להתחבר רק דרך Google</p>
         <button class="btn-google" onclick="doGoogleAuth()">
           <svg width="20" height="20" viewBox="0 0 48 48">
-            <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
-            <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
-            <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
-            <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.35-8.16 2.35-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+            <path fill="#EA4335"
+              d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z" />
+            <path fill="#4285F4"
+              d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z" />
+            <path fill="#FBBC05"
+              d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z" />
+            <path fill="#34A853"
+              d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.35-8.16 2.35-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z" />
           </svg>
           כניסה / הרשמה עם Google
         </button>
@@ -2104,16 +2108,19 @@
         </div>
       </div>
       <div id="atab-whitelist" class="acnt">
-   <div class="asec"><h4>📧 מיילים מורשים להתחבר</h4>
-    <p style="font-size:12px;color:var(--t2);margin-bottom:12px;">רק מיילים שברשימה זו יוכלו להיכנס לאתר. מנהל ראשי תמיד מורשה.</p>
-    <div style="display:flex;gap:8px;margin-bottom:12px;">
-     <input type="email" id="wlEmailInput" placeholder="example@gmail.com" style="flex:1;padding:9px 12px;border:1.5px solid var(--bd);border-radius:9px;font-size:13px;outline:none;font-family:inherit;">
-     <button class="mbtn p" onclick="addToWhitelist()">הוסף</button>
-    </div>
-    <div id="wlList"></div>
-   </div>
-  </div>
-  <div id="atab-settings" class="acnt">
+        <div class="asec">
+          <h4>📧 מיילים מורשים להתחבר</h4>
+          <p style="font-size:12px;color:var(--t2);margin-bottom:12px;">רק מיילים שברשימה זו יוכלו להיכנס לאתר. מנהל
+            ראשי תמיד מורשה.</p>
+          <div style="display:flex;gap:8px;margin-bottom:12px;">
+            <input type="email" id="wlEmailInput" placeholder="example@gmail.com"
+              style="flex:1;padding:9px 12px;border:1.5px solid var(--bd);border-radius:9px;font-size:13px;outline:none;font-family:inherit;">
+            <button class="mbtn p" onclick="addToWhitelist()">הוסף</button>
+          </div>
+          <div id="wlList"></div>
+        </div>
+      </div>
+      <div id="atab-settings" class="acnt">
         <div class="asec">
           <h4>סטטיסטיקות</h4>
           <div class="stgrid" id="aStats"></div>
@@ -2220,77 +2227,193 @@
     ];
 
 
-    // ═══ SERVER CONFIG ═══
-    const API = 'https://binaplus1.pythonanywhere.com/api';
-    let serverSyncPending = false;
-    let pollingInterval = null;
+    // ═══ FIREBASE CONFIG ═══
+    // ⬇️ החלף את הערכים האלה בפרטים שקיבלת מ-Firebase Console
+    const firebaseConfig = {
+      apiKey: "AIzaSyC3lsTeEOUdAje1NRtEZt9LB6vk_gmtZgs",
+      authDomain: "choopchik-forum.firebaseapp.com",
+      databaseURL: "https://choopchik-forum-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "choopchik-forum",
+      storageBucket: "choopchik-forum.firebasestorage.app",
+      messagingSenderId: "1044613106199",
+      appId: "1:1044613106199:web:64c78bccee34bba6666a52",
+      measurementId: "G-YCSFH3X533"
+    };
 
-    async function apiGet(endpoint) {
-      try {
-        const r = await fetch(API + endpoint);
-        if (!r.ok) throw new Error('HTTP ' + r.status);
-        return await r.json();
-      } catch (e) { console.warn('API error:', e); return null; }
+    // Firestore globals
+    let db = null;
+    let pollingInterval = null;
+    let fsUnsubscribers = [];
+
+    // ── Init Firebase ──
+    async function initFirebase() {
+      // Load SDK dynamically
+      await loadScript('https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js');
+      await loadScript('https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js');
+      firebase.initializeApp(FIREBASE_CONFIG);
+      db = firebase.firestore();
+      db.settings({ merge: true });
     }
-    async function apiPost(endpoint, data) {
+    function loadScript(src) {
+      return new Promise((res, rej) => {
+        if (document.querySelector('script[src="' + src + '"]')) { res(); return; }
+        const s = document.createElement('script');
+        s.src = src; s.onload = res; s.onerror = rej;
+        document.head.appendChild(s);
+      });
+    }
+
+    // ── Read a collection → array ──
+    async function fsGet(col) {
       try {
-        const r = await fetch(API + endpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
+        const snap = await db.collection(col).get();
+        return snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      } catch (e) { console.warn('fsGet', col, e); return []; }
+    }
+
+    // ── Read a single doc → object ──
+    async function fsGetDoc(col, docId) {
+      try {
+        const d = await db.collection(col).doc(docId).get();
+        return d.exists ? d.data() : null;
+      } catch (e) { return null; }
+    }
+
+    // ── Save array as collection (batch) ──
+    async function fsSaveArr(col, arr) {
+      if (!db) return;
+      try {
+        const batch = db.batch();
+        // Delete all existing docs first then rewrite
+        // We use a map keyed by item.id
+        arr.forEach(item => {
+          const ref = db.collection(col).doc(String(item.id || Date.now()));
+          batch.set(ref, item);
         });
-        if (!r.ok) throw new Error('HTTP ' + r.status);
-        return await r.json();
-      } catch (e) { console.warn('API error:', e); return null; }
+        await batch.commit();
+      } catch (e) { console.warn('fsSaveArr', col, e); }
     }
+
+    // ── Save object doc ──
+    async function fsSaveDoc(col, docId, data) {
+      if (!db) return;
+      try { await db.collection(col).doc(docId).set(data, { merge: true }); }
+      catch (e) { console.warn('fsSaveDoc', col, docId, e); }
+    }
+
+    // ── Delete a doc ──
+    async function fsDeleteDoc(col, docId) {
+      if (!db) return;
+      try { await db.collection(col).doc(docId).delete(); }
+      catch (e) { console.warn('fsDeleteDoc', e); }
+    }
+
+    // ── Sync FROM Firestore → localStorage ──
     async function syncFromServer() {
-      const data = await apiGet('/data');
-      if (!data) return false;
-      ['users', 'threads', 'messages', 'notifications', 'nameRequests'].forEach(k => {
-        if (data[k] !== undefined) localStorage.setItem(k, JSON.stringify(data[k]));
-      });
-      return true;
+      if (!db) return false;
+      try {
+        const [users, threads, msgs, reqs] = await Promise.all([
+          fsGet('users'), fsGet('threads'), fsGet('messages'), fsGet('nameRequests')
+        ]);
+        const notifDoc = await fsGetDoc('meta', 'notifications');
+        const wlDoc = await fsGetDoc('meta', 'whitelist');
+        const ltDoc = await fsGetDoc('meta', 'leftThreads');
+        const schedDoc = await fsGetDoc('meta', 'scheduledAnns');
+        localStorage.setItem('users', JSON.stringify(users));
+        localStorage.setItem('threads', JSON.stringify(threads));
+        localStorage.setItem('messages', JSON.stringify(msgs));
+        localStorage.setItem('nameRequests', JSON.stringify(reqs));
+        if (notifDoc) localStorage.setItem('notifications', JSON.stringify(notifDoc.data || {}));
+        if (wlDoc) localStorage.setItem('whitelist', JSON.stringify(wlDoc.list || []));
+        if (ltDoc) localStorage.setItem('leftThreads', JSON.stringify(ltDoc.data || {}));
+        if (schedDoc) localStorage.setItem('scheduledAnns', JSON.stringify(schedDoc.list || []));
+        return true;
+      } catch (e) { console.warn('syncFromServer', e); return false; }
     }
-    async function syncToServer() {
-      if (serverSyncPending) return;
-      serverSyncPending = true;
-      await apiPost('/data', {
-        users: JSON.parse(localStorage.getItem('users') || '[]'),
-        threads: JSON.parse(localStorage.getItem('threads') || '[]'),
-        messages: JSON.parse(localStorage.getItem('messages') || '[]'),
-        notifications: JSON.parse(localStorage.getItem('notifications') || '{}'),
-        nameRequests: JSON.parse(localStorage.getItem('nameRequests') || '[]'),
-      });
-      serverSyncPending = false;
+
+    // ── Write item to Firestore ──
+    // Called by ss() — debounced
+    let _pendingSaves = {};
+    let _saveTimer = null;
+    async function flushToFirestore() {
+      if (!db) return;
+      const keys = Object.keys(_pendingSaves);
+      _pendingSaves = {};
+      for (const k of keys) {
+        const raw = localStorage.getItem(k);
+        if (!raw) continue;
+        const val = JSON.parse(raw);
+        if (k === 'notifications') {
+          await fsSaveDoc('meta', 'notifications', { data: val });
+        } else if (k === 'leftThreads') {
+          await fsSaveDoc('meta', 'leftThreads', { data: val });
+        } else if (k === 'scheduledAnns') {
+          await fsSaveDoc('meta', 'scheduledAnns', { list: val });
+        } else if (Array.isArray(val)) {
+          await fsSaveArr(k, val);
+        }
+      }
     }
+
+    // ── ss() — save to localStorage AND queue Firestore write ──
+    const ss = (k, v) => {
+      localStorage.setItem(k, JSON.stringify(v));
+      _pendingSaves[k] = true;
+      clearTimeout(_saveTimer);
+      _saveTimer = setTimeout(flushToFirestore, 500);
+    };
+
+    // ── Real-time listener for messages (new message notification) ──
+    function startRealtimeListeners() {
+      if (!db || !CU) return;
+      // Listen to messages collection for changes
+      const unsub = db.collection('messages')
+        .orderBy('timestamp', 'desc')
+        .limit(1)
+        .onSnapshot(snap => {
+          if (!snap || snap.empty) return;
+          const change = snap.docChanges().find(c => c.type === 'added');
+          if (!change) return;
+          const msg = change.doc.data();
+          if (msg.userId === CU.id) return; // own message
+          // Refresh
+          syncFromServer().then(() => {
+            renderNotifs();
+            loadThreads();
+            if (CT && msg.threadId === CT.id) loadMsgs(CT.id);
+          });
+        }, err => console.warn('listener error', err));
+      fsUnsubscribers.push(unsub);
+    }
+
+    function stopListeners() {
+      fsUnsubscribers.forEach(u => u());
+      fsUnsubscribers = [];
+    }
+
     function startPolling() {
       if (pollingInterval) clearInterval(pollingInterval);
-      // Run scheduler every 30 seconds
       setInterval(runScheduler, 30000);
-      runScheduler(); // run immediately on start
+      runScheduler();
+      startRealtimeListeners();
+      // Fallback poll every 5s in case listener misses something
       pollingInterval = setInterval(async () => {
         if (!CU) return;
         const prevLen = CT ? JSON.parse(localStorage.getItem('messages') || '[]').filter(m => m.threadId === CT.id).length : -1;
-        const ok = await syncFromServer();
-        if (!ok) return;
+        await syncFromServer();
         renderNotifs();
         loadThreads();
         if (CT) {
           const newLen = JSON.parse(localStorage.getItem('messages') || '[]').filter(m => m.threadId === CT.id).length;
           if (newLen !== prevLen) loadMsgs(CT.id);
         }
-      }, 3000);
+      }, 5000);
     }
 
     // ═══ HELPERS ═══
     const $ = id => document.getElementById(id);
     const ls = k => JSON.parse(localStorage.getItem(k) || '[]');
     const lso = k => JSON.parse(localStorage.getItem(k) || '{}');
-    const ss = (k, v) => {
-      localStorage.setItem(k, JSON.stringify(v));
-      clearTimeout(ss._t);
-      ss._t = setTimeout(syncToServer, 400);
-    };
     const isSuper = u => { u = u || CU; return u && u.email && u.email.toLowerCase() === SUPER_EMAIL.toLowerCase(); };
     const isAdmin = u => { u = u || CU; return u && (u.isAdmin || isSuper(u)); };
     const can = p => {
@@ -2329,6 +2452,8 @@
       loader.style.cssText = 'position:fixed;inset:0;background:linear-gradient(135deg,#1e3a8a,#0ea5e9);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;color:white;font-family:Heebo,sans-serif;';
       loader.innerHTML = '<div style="font-size:36px;margin-bottom:16px;">💬</div><div style="font-size:18px;font-weight:700;margin-bottom:8px;">מרחב הדיונים</div><div style="font-size:14px;opacity:.8;">מתחבר לשרת...</div><div style="margin-top:20px;width:40px;height:40px;border:3px solid rgba(255,255,255,.3);border-top-color:white;border-radius:50%;animation:spin .7s linear infinite;"></div><style>@keyframes spin{to{transform:rotate(360deg)}}</style>';
       document.body.appendChild(loader);
+      // Init Firebase first
+      try { await initFirebase(); } catch (e) { console.warn('Firebase init failed:', e); }
       const loaded = await syncFromServer();
       if (!loaded) { console.warn('Server unavailable, using local data'); }
       loader.remove();
@@ -2387,6 +2512,7 @@
 
     function doLogout() {
       if (pollingInterval) { clearInterval(pollingInterval); pollingInterval = null; }
+      stopListeners();
       localStorage.removeItem('currentUser'); localStorage.removeItem('rem'); sessionStorage.removeItem('sa');
       CU = null; CT = null; $('authScreen').style.display = 'flex'; $('appCon').style.display = 'none';
     }
@@ -3789,12 +3915,12 @@
       if (!email || !email.includes('@')) { alert('הכנס מייל תקין'); return; }
       const wl = getWhitelist();
       if (wl.includes(email)) { alert('מייל זה כבר ברשימה'); return; }
-      wl.push(email); localStorage.setItem('whitelist', JSON.stringify(wl));
+      wl.push(email); localStorage.setItem('whitelist', JSON.stringify(wl)); fsSaveDoc('meta', 'whitelist', { list: wl });
       inp.value = ''; renderWhitelist();
     }
     function removeFromWhitelist(email) {
       const wl = getWhitelist().filter(e => e !== email);
-      localStorage.setItem('whitelist', JSON.stringify(wl));
+      localStorage.setItem('whitelist', JSON.stringify(wl)); fsSaveDoc('meta', 'whitelist', { list: wl });
       renderWhitelist();
     }
     function renderWhitelist() {
